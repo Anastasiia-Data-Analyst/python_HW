@@ -1,3 +1,10 @@
+'''На лекции при выполнении практического задания 2 был получен файл grades.csv. Напишите программу, которая:
+Читает этот файл.
+Создает на его основе три новых файла: grades-Science.csv, grades-Math.csv, grades-Physics.csv. 
+В каждом из этих файлов только два столбца - имя и количество баллов по тому предмету, который указан в названии файла.
+Создает четвертый файл grades-info.csv. В этом файле три строки (по названиям предметов) и столбцы со статистическими характеристиками оценок: 
+среднее арифметическое, минимум, максимум, медиана, стандартное отклонение.'''
+
 import csv
 import statistics
 
@@ -7,13 +14,8 @@ with open(f"{BASE_PATH}/grades.csv", "r", encoding="utf-8-sig", newline="") as f
     reader_f1 = csv.DictReader(file_f1)
     rows_f1 = list(reader_f1)
     
-subjects = []
+subjects = ["Science", "Math", "Physics"]
 
-for row_f1 in rows_f1:
-    subject_f1 = row_f1["subject"]    
-    if subject_f1 not in subjects:
-        subjects.append(subject_f1)
-        
 for subject in subjects:
     filename_f2 = f"grades-{subject}.csv"
     
@@ -26,9 +28,7 @@ for subject in subjects:
             if row_f1["subject"] == subject:
                 name_f1 = row_f1["name"]
                 grade_f1 = row_f1["grade"]
-                
                 writer_f2.writerow([name_f1, grade_f1])
-                
                 
 with open(f"{BASE_PATH}/grades-info.csv", "w", newline="") as file_info:
     writer_info = csv.writer(file_info)
